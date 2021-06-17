@@ -44,3 +44,12 @@ module "security" {
     environment = "dev"
   }
 }
+module "vm" {
+  source = "./vm"
+
+  resource_group_name       = "${data.azurerm_resource_group.dev.name}"
+  resource_group_location   = "${data.azurerm_resource_group.dev.location}"
+  subnet_id                 = "${module.network.vnet_subnets[0]}"
+  network_security_group_id = "${module.security.network_security_group_id}"
+}
+
